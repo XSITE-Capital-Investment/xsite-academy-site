@@ -1,0 +1,680 @@
+<title>XSITE Multifamily Accelerator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:        #080d18;
+    --ink-raised: #0d1628;
+    --ink-elev:   #141e30;
+    --line:       #1c2840;
+    --line-gold:  rgba(201,168,76,.22);
+    --gold:       #c9a84c;
+    --gold-bright:#e4c880;
+    --gold-dim:   rgba(201,168,76,.35);
+    --gold-glow:  rgba(201,168,76,.14);
+    --paper:      #ffffff;
+    --ink-text:   #080d18;
+    --text-1:     #f6f3ea;
+    --text-2:     rgba(246,243,234,.68);
+    --text-3:     rgba(246,243,234,.42);
+    --ok:         #7fb88a;
+    --no:         #c98a6a;
+    --radius-sm:  10px;
+    --radius-md:  16px;
+    --radius-lg:  26px;
+    --shell:      1180px;
+    --ease:       cubic-bezier(.4,0,.2,1);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--text-2);
+    font-family:'Montserrat',Arial,Helvetica,sans-serif;
+    font-weight:400;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;}
+  h1,h2,h3,h4{
+    font-family:'Montserrat',Arial,Helvetica,sans-serif;
+    color:var(--text-1);
+    margin:0;
+    text-wrap:balance;
+    letter-spacing:-.01em;
+  }
+  p{margin:0;}
+  ul{margin:0;padding:0;list-style:none;}
+  button{font-family:inherit;}
+
+  .shell{max-width:var(--shell);margin:0 auto;padding:0 32px;}
+  @media (max-width:760px){.shell{padding:0 20px;}}
+
+  .eyebrow{
+    font-size:.72rem;
+    font-weight:700;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--gold);
+  }
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(8,13,24,.78);
+    backdrop-filter:blur(18px) saturate(140%);
+    -webkit-backdrop-filter:blur(18px) saturate(140%);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-row{
+    display:flex;align-items:center;justify-content:space-between;
+    height:78px;gap:24px;
+  }
+  .brand{display:flex;align-items:center;gap:12px;text-decoration:none;}
+  .brand img{height:30px;width:auto;}
+  .brand .sub{
+    font-size:.6rem;font-weight:600;letter-spacing:.12em;
+    color:var(--text-3);text-transform:uppercase;
+    border-left:1px solid var(--line);padding-left:12px;line-height:1.3;
+    max-width:150px;
+  }
+  nav.links{display:flex;align-items:center;gap:34px;}
+  nav.links a{
+    font-size:.86rem;font-weight:500;text-decoration:none;color:var(--text-2);
+    transition:color .2s var(--ease);
+  }
+  nav.links a:hover{color:var(--gold-bright);}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    border-radius:999px;font-weight:700;font-size:.86rem;
+    padding:13px 26px;text-decoration:none;cursor:pointer;
+    border:1px solid transparent;transition:transform .2s var(--ease),box-shadow .2s var(--ease),background .2s var(--ease),opacity .2s var(--ease);
+    white-space:nowrap;
+  }
+  .btn-gold{background:linear-gradient(180deg,var(--gold-bright),var(--gold));color:#241a05;box-shadow:0 8px 24px -8px var(--gold-glow);}
+  .btn-gold:hover{transform:translateY(-1px);box-shadow:0 12px 30px -8px rgba(201,168,76,.4);}
+  .btn-gold:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none;}
+  .btn-ghost{background:transparent;border-color:var(--line);color:var(--text-1);}
+  .btn-ghost:hover{border-color:var(--gold-dim);color:var(--gold-bright);}
+  .btn-block{width:100%;padding:16px 20px;font-size:.92rem;}
+
+  .burger{display:none;background:none;border:1px solid var(--line);border-radius:8px;padding:9px 11px;color:var(--text-1);}
+  @media (max-width:900px){
+    nav.links{display:none;}
+    .burger{display:inline-flex;}
+    .header-cta{display:none;}
+  }
+  .mobile-menu{
+    display:none;flex-direction:column;gap:2px;padding:10px 20px 18px;
+    border-top:1px solid var(--line);background:var(--ink-raised);
+  }
+  .mobile-menu.open{display:flex;}
+  .mobile-menu a{padding:12px 4px;text-decoration:none;color:var(--text-2);font-size:.92rem;border-bottom:1px solid var(--line);}
+  .mobile-menu a:last-child{border-bottom:none;}
+
+  section{padding:100px 0;border-bottom:1px solid var(--line);}
+  @media (max-width:760px){section{padding:64px 0;}}
+  .section-head{max-width:640px;margin-bottom:48px;}
+  .section-head h2{font-size:clamp(1.7rem,3vw,2.35rem);font-weight:800;margin:14px 0 16px;}
+  .section-head p{color:var(--text-2);font-size:1.02rem;}
+
+  /* ---------- hero ---------- */
+  #hero{border-bottom:1px solid var(--line);padding-top:56px;background:
+      radial-gradient(ellipse 900px 500px at 15% -10%, var(--gold-glow), transparent 60%),
+      var(--ink);
+  }
+  .hero-grid{display:grid;grid-template-columns:1.55fr 1fr;gap:56px;align-items:start;}
+  @media (max-width:980px){.hero-grid{grid-template-columns:1fr;}}
+  .hero-copy h1{font-size:clamp(2.3rem,5vw,3.4rem);font-weight:800;line-height:1.08;margin:18px 0 22px;}
+  .hero-copy .lede{font-size:1.08rem;color:var(--text-2);max-width:58ch;margin-bottom:36px;}
+  .info-grid{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:var(--radius-md);overflow:hidden;}
+  .info-cell{padding:20px 24px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .info-cell:nth-child(2n){border-right:none;}
+  .info-cell:nth-last-child(-n+2){border-bottom:none;}
+  .info-cell .k{font-size:.66rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);margin-bottom:8px;}
+  .info-cell .v{font-size:.95rem;font-weight:600;color:var(--text-1);line-height:1.45;}
+  @media (max-width:560px){.info-grid{grid-template-columns:1fr;}.info-cell{border-right:none;}.info-cell:nth-last-child(-n+2){border-bottom:1px solid var(--line);}.info-cell:last-child{border-bottom:none;}}
+
+  /* ---------- enrollment card ---------- */
+  .enroll-wrap{position:sticky;top:100px;}
+  .card{
+    background:linear-gradient(180deg,var(--ink-elev),var(--ink-raised));
+    border:1px solid var(--line-gold);border-radius:var(--radius-lg);
+    padding:30px;
+  }
+  .enroll-card .price{font-size:2.6rem;font-weight:800;color:var(--paper);font-variant-numeric:tabular-nums;letter-spacing:-.02em;}
+  .enroll-card .price-note{font-size:.82rem;color:var(--text-3);margin-left:6px;font-weight:500;}
+  .enroll-card h3{font-size:1.3rem;font-weight:700;margin:6px 0 10px;}
+  .enroll-card .desc{font-size:.88rem;color:var(--text-2);margin-bottom:22px;}
+  .pay-option{
+    display:flex;align-items:flex-start;gap:12px;
+    border:1px solid var(--line);border-radius:var(--radius-sm);
+    padding:16px;margin-bottom:12px;cursor:pointer;
+    transition:border-color .2s var(--ease),background .2s var(--ease);
+  }
+  .pay-option:hover{border-color:var(--gold-dim);}
+  .pay-option.active{border-color:var(--gold);background:rgba(201,168,76,.06);}
+  .pay-option input{margin-top:3px;accent-color:var(--gold);}
+  .pay-option .row{display:flex;justify-content:space-between;gap:10px;width:100%;font-weight:700;color:var(--text-1);font-size:.94rem;}
+  .pay-option .sub{font-size:.78rem;color:var(--text-3);margin-top:4px;line-height:1.5;}
+  .today-box{
+    background:var(--ink);border:1px solid var(--line);border-radius:var(--radius-sm);
+    padding:14px 16px;font-size:.82rem;color:var(--text-2);margin:18px 0;
+    display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;
+  }
+  .today-box b{color:var(--text-1);font-variant-numeric:tabular-nums;}
+  .agree{display:flex;gap:10px;align-items:flex-start;font-size:.76rem;color:var(--text-3);margin-bottom:18px;line-height:1.5;}
+  .agree input{margin-top:3px;accent-color:var(--gold);}
+  .agree a{color:var(--gold-bright);text-decoration:underline;text-underline-offset:2px;}
+  .mount-box{
+    border:1px dashed var(--line);border-radius:var(--radius-sm);
+    padding:16px;font-size:.74rem;color:var(--text-3);text-align:center;margin-top:14px;
+    font-style:italic;
+  }
+  .secure-note{font-size:.72rem;color:var(--text-3);text-align:center;margin-top:14px;line-height:1.6;}
+
+  /* ---------- curriculum ---------- */
+  .curr-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius-md);overflow:hidden;}
+  @media (max-width:760px){.curr-grid{grid-template-columns:1fr;}}
+  .curr-item{background:var(--ink-raised);padding:28px 30px;display:flex;gap:18px;}
+  .curr-item .num{font-size:1.5rem;font-weight:800;color:var(--gold);font-variant-numeric:tabular-nums;line-height:1.2;min-width:2ch;}
+  .curr-item h4{font-size:1.05rem;font-weight:700;margin-bottom:8px;}
+  .curr-item p{font-size:.88rem;color:var(--text-2);margin-bottom:10px;}
+  .curr-item .leave{font-size:.82rem;color:var(--text-3);}
+  .curr-item .leave b{color:var(--text-2);font-weight:600;}
+  .callout{
+    margin-top:24px;border-left:3px solid var(--gold);background:var(--ink-raised);
+    border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+    padding:18px 22px;font-size:.88rem;color:var(--text-2);
+  }
+
+  /* ---------- delivery table ---------- */
+  .table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius-md);}
+  table{width:100%;border-collapse:collapse;min-width:640px;}
+  th{
+    text-align:left;font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--text-3);padding:16px 24px;border-bottom:1px solid var(--line);
+  }
+  td{padding:18px 24px;border-bottom:1px solid var(--line);font-size:.88rem;vertical-align:top;}
+  tr:last-child td{border-bottom:none;}
+  td:first-child{font-weight:700;color:var(--text-1);width:26%;}
+  td:last-child{color:var(--gold-bright);white-space:nowrap;width:22%;font-size:.82rem;font-weight:600;}
+  tbody tr:hover{background:rgba(201,168,76,.04);}
+
+  /* ---------- instructors ---------- */
+  .people{display:grid;grid-template-columns:1fr 1fr;gap:36px;}
+  @media (max-width:760px){.people{grid-template-columns:1fr;}}
+  .person .role{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+  .person h3{font-size:1.2rem;font-weight:700;margin-bottom:12px;}
+  .person p{font-size:.92rem;color:var(--text-2);}
+
+  /* ---------- tuition ---------- */
+  .price-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+  @media (max-width:760px){.price-grid{grid-template-columns:1fr;}}
+  .price-card{border:1px solid var(--line);border-radius:var(--radius-lg);padding:32px;background:var(--ink-raised);}
+  .price-card h4{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--text-2);}
+  .price-card .amt{font-size:2.2rem;font-weight:800;color:var(--paper);font-variant-numeric:tabular-nums;}
+  .price-card .amt sup{font-size:1rem;color:var(--text-3);font-weight:600;}
+  .price-card .cap{font-size:.86rem;color:var(--text-2);margin:10px 0 16px;}
+  .price-card ul li{font-size:.82rem;color:var(--text-3);margin-bottom:8px;padding-left:16px;position:relative;}
+  .price-card ul li::before{content:"&mdash;";position:absolute;left:0;color:var(--gold-dim);}
+  .fee-note{
+    margin-top:20px;border-left:3px solid var(--gold);background:var(--ink-raised);
+    padding:16px 20px;font-size:.84rem;color:var(--text-2);border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+  }
+
+  /* ---------- refund short ---------- */
+  #refund .card{display:flex;justify-content:space-between;align-items:center;gap:30px;flex-wrap:wrap;}
+  #refund .card p{max-width:60ch;color:var(--text-2);font-size:.94rem;}
+  #refund .card a.link{color:var(--gold-bright);font-weight:600;text-decoration:underline;text-underline-offset:3px;white-space:nowrap;}
+
+  /* ---------- who it's for ---------- */
+  .fit-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius-md);overflow:hidden;}
+  @media (max-width:700px){.fit-grid{grid-template-columns:1fr;}}
+  .fit-col{background:var(--ink-raised);padding:30px;}
+  .fit-col h4{font-size:.95rem;font-weight:700;margin-bottom:18px;color:var(--text-1);}
+  .fit-col li{display:flex;gap:12px;font-size:.9rem;color:var(--text-2);margin-bottom:14px;line-height:1.55;}
+  .fit-col.yes .mark{color:var(--ok);}
+  .fit-col.no .mark{color:var(--no);}
+  .fit-col .mark{font-weight:800;flex-shrink:0;}
+
+  /* ---------- faq ---------- */
+  .faq-item{border:1px solid var(--line);border-radius:var(--radius-sm);margin-bottom:12px;background:var(--ink-raised);overflow:hidden;}
+  .faq-item summary{
+    list-style:none;cursor:pointer;padding:20px 24px;
+    display:flex;justify-content:space-between;align-items:center;gap:16px;
+    font-weight:600;color:var(--text-1);font-size:.96rem;
+  }
+  .faq-item summary::-webkit-details-marker{display:none;}
+  .faq-item summary .ic{color:var(--gold);font-size:1.2rem;font-weight:300;transition:transform .2s var(--ease);flex-shrink:0;}
+  .faq-item[open] summary .ic{transform:rotate(45deg);}
+  .faq-item .body{padding:0 24px 22px;font-size:.88rem;color:var(--text-2);max-width:70ch;}
+
+  /* ---------- policies ---------- */
+  .policy-block{border-bottom:1px solid var(--line);padding:26px 0;}
+  .policy-block:last-child{border-bottom:none;}
+  .policy-block summary{
+    list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;
+    font-size:1.15rem;font-weight:700;color:var(--text-1);
+  }
+  .policy-block summary::-webkit-details-marker{display:none;}
+  .policy-block summary .ic{color:var(--gold);font-size:1.3rem;font-weight:300;transition:transform .2s var(--ease);}
+  .policy-block[open] summary .ic{transform:rotate(45deg);}
+  .policy-body{padding-top:18px;font-size:.86rem;color:var(--text-2);}
+  .policy-body p{margin-bottom:14px;}
+  .policy-body b{color:var(--text-1);font-weight:700;}
+  .policy-meta{font-size:.78rem;color:var(--text-3);margin-top:22px;}
+
+  /* ---------- footer ---------- */
+  footer{padding:70px 0 34px;}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px;padding-bottom:40px;border-bottom:1px solid var(--line);}
+  @media (max-width:700px){.foot-grid{grid-template-columns:1fr;gap:32px;}}
+  .foot-grid h5{font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);margin-bottom:16px;}
+  .foot-grid p, .foot-grid a{font-size:.86rem;color:var(--text-2);margin-bottom:8px;display:block;text-decoration:none;}
+  .foot-grid a:hover{color:var(--gold-bright);}
+  .foot-brand{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+  .foot-brand img{height:22px;}
+  .foot-bottom{padding-top:26px;font-size:.76rem;color:var(--text-3);line-height:1.7;max-width:900px;}
+
+  ::selection{background:var(--gold);color:#1a1305;}
+  :focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important;}}
+</style>
+
+<header>
+  <div class="shell nav-row">
+    <a class="brand" href="#hero">
+      <img src="assets/xsite-academy-logo.png" alt="XSITE Academy">
+      <span class="sub">A division of XSITE Capital Investment LLC</span>
+    </a>
+    <nav class="links">
+      <a href="#curriculum">Curriculum</a>
+      <a href="#tuition">Tuition</a>
+      <a href="#refund">Refund policy</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn btn-gold header-cta" href="#enroll">Enroll</a>
+    <button class="burger" id="burgerBtn" aria-label="Menu" aria-expanded="false">☰</button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#curriculum">Curriculum</a>
+    <a href="#tuition">Tuition</a>
+    <a href="#refund">Refund policy</a>
+    <a href="#faq">FAQ</a>
+    <a href="#enroll">Enroll</a>
+  </div>
+</header>
+
+<section id="hero">
+  <div class="shell hero-grid">
+    <div class="hero-copy">
+      <div class="eyebrow">Live online course &middot; 10 weeks &middot; Founding cohort</div>
+      <h1>The XSITE Multifamily Accelerator</h1>
+      <p class="lede">A ten-week, instructor-led course that teaches working professionals how to analyze apartment buildings as an asset class: markets, underwriting, due diligence, financing, tax rules, and asset management. Taught live by the co-founders of XSITE Capital.</p>
+      <div class="info-grid">
+        <div class="info-cell"><div class="k">Format</div><div class="v">10 live sessions on Zoom, 90 minutes each</div></div>
+        <div class="info-cell"><div class="k">Schedule</div><div class="v">One session per week, plus two group deal labs</div></div>
+        <div class="info-cell"><div class="k">Class size</div><div class="v">25 students per cohort</div></div>
+        <div class="info-cell"><div class="k">Tuition</div><div class="v">$4,997, or 3 payments of $1,797</div></div>
+        <div class="info-cell"><div class="k">Refund window</div><div class="v">Through the Friday after Session 2</div></div>
+        <div class="info-cell"><div class="k">Next cohort begins</div><div class="v">[Start date] &middot; Session 1</div></div>
+      </div>
+    </div>
+
+    <div class="enroll-wrap" id="enroll">
+      <div class="card enroll-card">
+        <div class="eyebrow">Enrollment</div>
+        <h3>Founding Cohort</h3>
+        <p class="desc">Begins [Start date]. Seats are limited to 25 so every student can present work in the deal labs.</p>
+
+        <div><span class="price" id="priceDisplay">$4,997</span><span class="price-note" id="priceNote">tuition, paid in full</span></div>
+
+        <div style="margin-top:22px;">
+          <label class="pay-option active" id="optFull">
+            <input type="radio" name="plan" value="full" checked>
+            <div style="width:100%;">
+              <div class="row"><span>Pay in full</span><span>$4,997</span></div>
+              <div class="sub">One payment today.</div>
+            </div>
+          </label>
+          <label class="pay-option" id="optPlan">
+            <input type="radio" name="plan" value="plan">
+            <div style="width:100%;">
+              <div class="row"><span>3 monthly payments</span><span>$1,797 &times; 3</span></div>
+              <div class="sub">Billed today, in 30 days, and in 60 days &middot; $5,391 total.</div>
+            </div>
+          </label>
+        </div>
+
+        <div class="today-box">
+          <span>Today (<span id="todayDate">&mdash;</span>)</span>
+          <b id="todayAmt">$4,997 &middot; Total: $4,997</b>
+        </div>
+
+        <label class="agree">
+          <input type="checkbox" id="agreeBox">
+          <span>I have read the <a href="#refund-policy">Refund Policy</a>, <a href="#terms">Terms of Enrollment</a>, and <a href="#disclaimer">Disclaimer</a>, and I understand that this is an educational course and not an investment.</span>
+        </label>
+
+        <button class="btn btn-gold btn-block" id="checkoutBtn" disabled>Continue to secure checkout</button>
+
+        <div class="mount-box">[MOUNT&#8209;1] Stripe Payment Element renders here. No card fields are built into this page.</div>
+        <div class="secure-note">Secure checkout &middot; Visa, Mastercard, American Express, Discover<br>Receipt and course access details are emailed within minutes of enrollment.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="curriculum">
+  <div class="shell">
+    <div class="section-head">
+      <div class="eyebrow">Curriculum</div>
+      <h2>Ten sessions, in the order a real acquisition happens</h2>
+      <p>Each session is a live, 90-minute class with instruction, worked examples, and Q&amp;A. Sessions are numbered rather than dated so the same syllabus runs every cohort; your calendar of dates is sent at enrollment. Recordings are posted within 24 hours.</p>
+    </div>
+
+    <div class="curr-grid">
+      <div class="curr-item"><div class="num">1</div><div><h4>Orientation and the investor's decision framework</h4><p>How multifamily ownership works, the roles in a deal, and how to define your own criteria before you look at a single property.</p><p class="leave"><b>You leave with:</b> a written buy box (used for the refund-window assignment).</p></div></div>
+      <div class="curr-item"><div class="num">2</div><div><h4>Market selection</h4><p>Reading population, employment, and supply data for a metro and submarket. How to compare two markets on the same scale.</p><p class="leave"><b>You leave with:</b> a completed market scorecard for one metro.</p></div></div>
+      <div class="curr-item"><div class="num">3</div><div><h4>Underwriting fundamentals</h4><p>Income, expenses, net operating income, debt service, and the assumptions that matter most. The XSITE underwriting spreadsheet is introduced and released this session.</p><p class="leave"><b>You leave with:</b> a first pass at a sample property in the model.</p></div></div>
+      <div class="curr-item"><div class="num">4</div><div><h4>Deal screening and sourcing</h4><p>Where listings and off-market opportunities come from, how brokers work, and how to screen a deal in minutes before spending hours on it.</p><p class="leave"><b>You leave with:</b> a pipeline tracker with your first screened deals.</p></div></div>
+      <div class="curr-item"><div class="num">5</div><div><h4>Due diligence</h4><p>Physical, financial, and legal diligence: what to inspect, what to request from a seller, and how to read a rent roll and a T-12.</p><p class="leave"><b>You leave with:</b> the diligence checklist and request list.</p></div></div>
+      <div class="curr-item"><div class="num">6</div><div><h4>Financing</h4><p>Agency, bank, and bridge loans; how lenders size debt; what changes when rates move. How to talk to a lender.</p><p class="leave"><b>You leave with:</b> a loan-sizing worksheet.</p></div></div>
+      <div class="curr-item"><div class="num">7</div><div><h4>Tax rules for property owners</h4><p>Depreciation, cost segregation, passive-activity rules, and the Real Estate Professional Status test as written in the tax code. Taught as education; students are directed to their own CPA for advice.</p><p class="leave"><b>You leave with:</b> a CPA conversation guide and time-log template.</p></div></div>
+      <div class="curr-item"><div class="num">8</div><div><h4>Partnership and capital structures</h4><p>How general and limited partners are organized, what a private placement is, and what securities rules require. Taught so students can recognize a well-structured deal.</p><p class="leave"><b>You leave with:</b> a glossary of partnership terms.</p></div></div>
+      <div class="curr-item"><div class="num">9</div><div><h4>Asset management</h4><p>What ownership looks like after closing: property management oversight, budgets, reporting, and the monthly review.</p><p class="leave"><b>You leave with:</b> a monthly asset-management review template.</p></div></div>
+      <div class="curr-item"><div class="num">10</div><div><h4>Capstone: buyer interview and portfolio plan</h4><p>Students present one underwritten deal to the instructors and receive structured feedback, then finish a written plan for their next twelve months of study and action.</p><p class="leave"><b>You leave with:</b> a completed capstone and certificate of completion.</p></div></div>
+    </div>
+
+    <div class="callout">Two group deal labs are scheduled between sessions, where a real listing is underwritten live on screen with the class. Deal labs are group instruction; no individual investment advice is given.</div>
+  </div>
+</section>
+
+<section id="delivery">
+  <div class="shell">
+    <div class="section-head">
+      <div class="eyebrow">How the course is delivered</div>
+      <h2>What you receive, and when</h2>
+      <p>Everything is delivered on a fixed schedule so you know exactly what to expect on each date. Nothing in this course is a subscription; tuition is a one-time purchase (or three scheduled installments) for a defined program.</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Item</th><th>What it is</th><th>Released</th></tr></thead>
+        <tbody>
+          <tr><td>Student account and welcome email</td><td>Login to the learning portal, your session calendar, and the Week Zero worksheet</td><td>Within minutes of enrollment</td></tr>
+          <tr><td>Legacy Multifamily Course</td><td>Self-paced recorded foundation course, lifetime access</td><td>Day one</td></tr>
+          <tr><td>Ten live sessions</td><td>Weekly 90-minute classes with both instructors, recorded</td><td>Weekly from Session 1</td></tr>
+          <tr><td>Two group deal labs</td><td>Live underwriting of a real listing with the class</td><td>After Sessions 4 and 8</td></tr>
+          <tr><td>Underwriting spreadsheet and market analyzer</td><td>The templates used in class, yours to keep</td><td>Session 3, after the refund window closes</td></tr>
+          <tr><td>Deal toolkit</td><td>Pipeline tracker, letter-of-intent template, diligence checklists</td><td>Sessions 4&ndash;5</td></tr>
+          <tr><td>Tax and REPS starter kit</td><td>Recorded module, time log, CPA conversation guide, and the $750 Tax Map reference sheet</td><td>Session 7</td></tr>
+          <tr><td>Spouse Kit</td><td>A 15-minute overview of the course for a partner, plus the REPS qualification decision tree</td><td>Day one</td></tr>
+          <tr><td>Student community</td><td>Private discussion group with instructors and classmates</td><td>Day one, through graduation and beyond</td></tr>
+          <tr><td>Certificate of completion</td><td>Issued on completion of the capstone</td><td>Session 10</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">Why the spreadsheets release at Session 3: our refund window runs through the Friday after Session 2. Releasing proprietary templates after that date keeps the guarantee simple and fair for everyone.</div>
+  </div>
+</section>
+
+<section id="instructors">
+  <div class="shell">
+    <div class="section-head">
+      <div class="eyebrow">Instructors</div>
+      <h2>Taught by the people who do the work</h2>
+      <p>Both instructors teach every live session. They are co-founders of XSITE Capital, a multifamily real estate firm that owns and operates apartment communities, and they have hosted a free weekly educational session for this community since 2021.</p>
+    </div>
+    <div class="people">
+      <div class="person">
+        <div class="role">Co-founder &amp; COO, XSITE Capital</div>
+        <h3>Leslie Awasom, CRNA</h3>
+        <p>Leslie practiced as a nurse anesthetist at Johns Hopkins Bayview for nine years before moving into real estate operations full-time. He leads underwriting, asset management, and the operations curriculum, and has taught the market-selection and underwriting sessions to more than a thousand professionals through the Beyond 9 to 5 Club.</p>
+      </div>
+      <div class="person">
+        <div class="role">Co-founder &amp; Chief Growth Officer, XSITE Capital</div>
+        <h3>Tenny Tolofari</h3>
+        <p>Tenny leads investor education and partnerships at XSITE Capital and co-hosts the weekly Midweek Breakthrough sessions. He teaches the financing, partnership-structure, and capstone sessions.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tuition">
+  <div class="shell">
+    <div class="section-head">
+      <div class="eyebrow">Tuition</div>
+      <h2>One price, two ways to pay</h2>
+      <p>Tuition covers the full ten-week course and everything in the delivery schedule above. There are no upsells inside the course and no recurring charges after the installment plan is complete.</p>
+    </div>
+    <div class="price-grid">
+      <div class="price-card">
+        <h4>Pay in full</h4>
+        <div class="amt">$4,997</div>
+        <p class="cap">One payment, charged today.</p>
+      </div>
+      <div class="price-card">
+        <h4>Three monthly payments</h4>
+        <div class="amt">$1,797<sup> &times; 3</sup></div>
+        <p class="cap">Charged today, 30 days from today, and 60 days from today. Total $5,391. All three dates appear on your receipt.</p>
+        <ul>
+          <li>Interest-free; the $394 difference is a payment-plan fee, disclosed here and at checkout.</li>
+          <li>If a later installment fails, we email you and retry; course access is not removed without notice.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="fee-note">Tuition is charged by XSITE Capital Investment LLC (d/b/a XSITE Academy). The descriptor on your card statement reads XSITE ACADEMY.</div>
+  </div>
+</section>
+
+<section id="refund">
+  <div class="shell">
+    <div class="eyebrow">Refund policy, in short</div>
+    <div class="card" style="margin-top:16px;">
+      <div>
+        <h2 style="font-size:1.6rem;font-weight:800;margin-bottom:12px;">Attend two sessions. Decide with full information.</h2>
+        <p>Enroll, attend Sessions 1 and 2, and submit the written buy box from Session 1. If the course is not what you expect, email us by 5:00 p.m. Eastern on the Friday after Session 2 and we refund your tuition in full, including any installment already paid.</p>
+      </div>
+      <a class="link" href="#refund-policy">Read the full refund policy &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<section id="who">
+  <div class="shell">
+    <div class="section-head">
+      <div class="eyebrow">Who it's for</div>
+      <h2>A good fit, and not a good fit</h2>
+    </div>
+    <div class="fit-grid">
+      <div class="fit-col yes">
+        <h4>Enroll if you</h4>
+        <ul>
+          <li><span class="mark">&#10003;</span>are a working professional who wants to understand apartment investing before you commit any money to it</li>
+          <li><span class="mark">&#10003;</span>can attend ten weekly 90-minute evening sessions live, or watch each recording within the week</li>
+          <li><span class="mark">&#10003;</span>are comfortable with spreadsheets, or willing to become comfortable</li>
+          <li><span class="mark">&#10003;</span>want a structured curriculum with assignments and feedback rather than a video library</li>
+        </ul>
+      </div>
+      <div class="fit-col no">
+        <h4>Don't enroll if you</h4>
+        <ul>
+          <li><span class="mark">&#10005;</span>are looking for a place to invest money &mdash; this is a course, and we do not offer investments through it</li>
+          <li><span class="mark">&#10005;</span>expect a guaranteed financial outcome; no course can promise one, and we don't</li>
+          <li><span class="mark">&#10005;</span>can't make the time for the live sessions and assignments</li>
+          <li><span class="mark">&#10005;</span>need individual investment, legal, or tax advice &mdash; we'll point you to the right licensed professional instead</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="shell">
+    <div class="section-head">
+      <div class="eyebrow">Questions</div>
+      <h2>Before you enroll</h2>
+    </div>
+
+    <details class="faq-item" open>
+      <summary>Is this an investment? Does my tuition go into a property or fund?<span class="ic">+</span></summary>
+      <div class="body">No. Tuition pays for instruction only. XSITE Academy does not pool student tuition into any property, fund, or security, and enrolling does not give you an ownership stake in anything. What you do with what you learn afterward is entirely your own decision.</div>
+    </details>
+    <details class="faq-item">
+      <summary>Will I be asked to invest with XSITE Capital?<span class="ic">+</span></summary>
+      <div class="body">No. XSITE Capital's deals are separate from this course. Some graduates later invest alongside XSITE Capital, and many don't; nothing in the curriculum requires it, and no session is a pitch for a specific deal.</div>
+    </details>
+    <details class="faq-item">
+      <summary>What if I miss a live session?<span class="ic">+</span></summary>
+      <div class="body">Every session is recorded and posted within 24 hours, so you can watch on your own schedule. Group deal labs are the exception: they run live twice per cohort, and joining live is how most students get feedback on their own screening work.</div>
+    </details>
+    <details class="faq-item">
+      <summary>How does the refund work, exactly?<span class="ic">+</span></summary>
+      <div class="body">Attend Sessions 1 and 2, live or recorded, and submit the Session 1 buy box assignment. Email support@xsiteacademy.com by 5:00 p.m. Eastern the Friday after Session 2, and we refund every dollar paid, including installments, to your original payment method within 5&ndash;10 business days.</div>
+    </details>
+    <details class="faq-item">
+      <summary>Do you promise results?<span class="ic">+</span></summary>
+      <div class="body">No. This is education, not a guarantee. We can't promise you'll close a deal, and we'd be skeptical of anyone who does. What we do promise is a structured curriculum, direct instructor access, and templates built from deals we've actually closed.</div>
+    </details>
+    <details class="faq-item">
+      <summary>Is there anything else to buy after this?<span class="ic">+</span></summary>
+      <div class="body">No. Tuition includes every tool, template, and the Legacy Multifamily Course listed in the delivery schedule above. There is no upsell inside the program and no subscription that continues after your installments are complete.</div>
+    </details>
+    <details class="faq-item">
+      <summary>Who do I contact with a question?<span class="ic">+</span></summary>
+      <div class="body">Email support@xsiteacademy.com and we'll respond within one business day.</div>
+    </details>
+  </div>
+</section>
+
+<section id="policies">
+  <div class="shell">
+    <div class="section-head">
+      <div class="eyebrow">Policies</div>
+      <h2>The fine print, in full</h2>
+      <p>These policies apply to every enrollment and are linked from the checkout acknowledgment. Last updated September 14, 2026.</p>
+    </div>
+
+    <details class="policy-block" id="refund-policy" open>
+      <summary>Refund Policy<span class="ic">+</span></summary>
+      <div class="policy-body">
+        <p><b>Eligibility.</b> Any student may request a full refund of tuition paid, including any installment already charged, provided all three conditions are met: (1) the student attended Sessions 1 and 2 live or watched the recordings; (2) the student submitted the written buy box assignment from Session 1; and (3) the request is emailed to support@xsiteacademy.com no later than 5:00 p.m. Eastern on the Friday following Session 2 of the student's cohort.</p>
+        <p><b>Process.</b> We acknowledge refund requests within one business day and issue approved refunds to the original payment method within 5&ndash;10 business days. Remaining installments are cancelled at the same time. Course access ends when the refund is issued.</p>
+        <p><b>After the refund window.</b> Because proprietary templates and tools are released at Session 3, tuition is non-refundable after the window closes. Students who cannot complete a cohort for medical or family reasons may transfer their seat to the next cohort at no charge by emailing support.</p>
+        <p><b>Installment plans.</b> Choosing the three-payment plan does not change the refund window. If a refund is approved, all installments already paid are returned and future installments are cancelled.</p>
+      </div>
+    </details>
+
+    <details class="policy-block" id="terms">
+      <summary>Terms of Enrollment<span class="ic">+</span></summary>
+      <div class="policy-body">
+        <p><b>Parties.</b> These terms are between the enrolling student and XSITE Capital Investment LLC, a Maryland limited liability company doing business as XSITE Academy ("XSITE Academy," "we").</p>
+        <p><b>What you're buying.</b> A seat in one cohort of the XSITE Multifamily Accelerator, an educational course delivered as described on this page, together with the course materials listed in the delivery schedule. Tuition is $4,997, payable in full or as three installments of $1,797 billed on enrollment and at 30 and 60 days.</p>
+        <p><b>Educational purpose.</b> The course provides general education about multifamily real estate. It is not investment, legal, tax, or financial advice, and it is not an offer or solicitation to buy or sell any security, real property, or interest in any entity. Students are responsible for their own decisions and are encouraged to consult licensed professionals.</p>
+        <p><b>License to materials.</b> Course materials are licensed to the enrolled student for personal, non-commercial use. They may not be resold, shared, or redistributed.</p>
+        <p><b>Conduct.</b> We may remove a student who disrupts sessions or harasses others; in that case tuition for remaining sessions is refunded on a pro-rata basis.</p>
+        <p><b>Recordings.</b> Live sessions are recorded for enrolled students. Students may turn their camera off at any time.</p>
+        <p><b>Changes.</b> If we must reschedule a session, we give at least 48 hours' notice and post the recording. If we cancel a cohort before Session 1, all tuition is refunded in full.</p>
+        <p><b>Governing law.</b> Maryland law governs these terms. Disputes are resolved in the state or federal courts located in Maryland.</p>
+        <p><b>Contact.</b> XSITE Capital Investment LLC, 5457 Twin Knolls Rd, Suite 300, Columbia, MD 21045 &middot; support@xsiteacademy.com &middot; (301) 900-2625.</p>
+      </div>
+    </details>
+
+    <details class="policy-block" id="privacy">
+      <summary>Privacy Policy<span class="ic">+</span></summary>
+      <div class="policy-body">
+        <p><b>What we collect.</b> When you enroll we collect your name, email address, phone number, billing address, and the information you enter in course assignments. Payment card details are entered directly into our payment processor's secure form and are never stored on our servers.</p>
+        <p><b>How we use it.</b> To deliver the course, send session reminders and recordings, provide support, process payments and refunds, and, with your consent, send information about future courses. You can unsubscribe from marketing email at any time.</p>
+        <p><b>Who we share it with.</b> Service providers who help us run the course: our payment processor (Stripe), video platform (Zoom), learning portal, email service, and customer relationship software. Each is bound to use your information only to provide its service. We do not sell personal information.</p>
+        <p><b>Retention and rights.</b> We keep enrollment and payment records for seven years for accounting and tax purposes. You may request a copy, correction, or deletion of your personal information by emailing support@xsiteacademy.com.</p>
+        <p><b>Cookies.</b> This page uses only the cookies required for checkout and basic, aggregated analytics.</p>
+      </div>
+    </details>
+
+    <details class="policy-block" id="disclaimer">
+      <summary>Disclaimer<span class="ic">+</span></summary>
+      <div class="policy-body">
+        <p>The XSITE Multifamily Accelerator is an educational program. XSITE Academy and its instructors are not registered investment advisers, broker-dealers, attorneys, or accountants, and nothing in the course or on this page constitutes investment, legal, tax, or financial advice.</p>
+        <p>We make no representation that any student will purchase a property, earn income, or achieve any financial result by taking this course. Real estate investing involves risk, including the possible loss of principal. Any examples used in class are for instruction only and describe past transactions that may not be repeated.</p>
+        <p>Tax rules discussed in Session 7, including Real Estate Professional Status, are presented as they appear in the Internal Revenue Code and are subject to change; eligibility depends on individual facts and should be confirmed with a qualified tax professional.</p>
+      </div>
+    </details>
+
+    <div class="policy-meta">XSITE Capital Investment LLC &middot; Maryland &middot; Policies effective September 14, 2026.</div>
+  </div>
+</section>
+
+<footer>
+  <div class="shell">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand"><img src="assets/xsite-academy-logo.png" alt="XSITE Academy"></div>
+        <p>The education division of XSITE Capital Investment LLC</p>
+        <p>5457 Twin Knolls Rd, Suite 300<br>Columbia, Maryland 21045</p>
+        <p>support@xsiteacademy.com</p>
+        <p>(301) 900-2625 &middot; Mon&ndash;Fri, 9&ndash;5 Eastern</p>
+      </div>
+      <div>
+        <h5>Policies</h5>
+        <a href="#refund-policy">Refund Policy</a>
+        <a href="#terms">Terms of Enrollment</a>
+        <a href="#privacy">Privacy Policy</a>
+        <a href="#disclaimer">Disclaimer</a>
+      </div>
+      <div>
+        <h5>Elsewhere</h5>
+        <a href="#">YouTube</a>
+        <a href="#">Instagram</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">XSITE Capital</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      © 2026 XSITE Capital Investment LLC, d/b/a XSITE Academy. All rights reserved. XSITE Academy sells educational courses only; it does not offer, sell, or broker investments or real estate. Charges appear on your statement as XSITE ACADEMY.
+    </div>
+  </div>
+</footer>
+
+<script>
+  var burger = document.getElementById('burgerBtn');
+  var menu = document.getElementById('mobileMenu');
+  burger.addEventListener('click', function(){
+    var open = menu.classList.toggle('open');
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  menu.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ menu.classList.remove('open'); });
+  });
+
+  var optFull = document.getElementById('optFull');
+  var optPlan = document.getElementById('optPlan');
+  var priceDisplay = document.getElementById('priceDisplay');
+  var priceNote = document.getElementById('priceNote');
+  var todayAmt = document.getElementById('todayAmt');
+  var checkoutBtn = document.getElementById('checkoutBtn');
+
+  function selectPlan(which){
+    if(which === 'full'){
+      optFull.classList.add('active'); optPlan.classList.remove('active');
+      priceDisplay.textContent = '$4,997'; priceNote.textContent = 'tuition, paid in full';
+      todayAmt.textContent = '$4,997 &middot; Total: $4,997';
+    } else {
+      optPlan.classList.add('active'); optFull.classList.remove('active');
+      priceDisplay.textContent = '$1,797'; priceNote.textContent = 'due today, first of 3 payments';
+      todayAmt.textContent = '$1,797 &middot; Total: $5,391';
+    }
+  }
+  optFull.addEventListener('click', function(){ optFull.querySelector('input').checked = true; selectPlan('full'); });
+  optPlan.addEventListener('click', function(){ optPlan.querySelector('input').checked = true; selectPlan('plan'); });
+
+  document.getElementById('agreeBox').addEventListener('change', function(e){
+    checkoutBtn.disabled = !e.target.checked;
+  });
+
+  document.getElementById('todayDate').textContent = new Date().toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
+</script>
