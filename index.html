@@ -1,3 +1,8 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>XSITE Multifamily Accelerator</title>
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -98,7 +103,7 @@
   }
   .btn-gold{background:linear-gradient(180deg,var(--gold-bright),var(--gold));color:#241a05;box-shadow:0 8px 24px -8px var(--gold-glow);}
   .btn-gold:hover{transform:translateY(-1px);box-shadow:0 12px 30px -8px rgba(201,168,76,.4);}
-  .btn-gold:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none;}
+  .btn-gold:disabled,.btn-gold.is-disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none;pointer-events:none;}
   .btn-ghost{background:transparent;border-color:var(--line);color:var(--text-1);}
   .btn-ghost:hover{border-color:var(--gold-dim);color:var(--gold-bright);}
   .btn-block{width:100%;padding:16px 20px;font-size:.92rem;}
@@ -220,9 +225,10 @@
   .price-card h4{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--text-2);}
   .price-card .amt{font-size:2.2rem;font-weight:800;color:var(--paper);font-variant-numeric:tabular-nums;}
   .price-card .amt sup{font-size:1rem;color:var(--text-3);font-weight:600;}
+  .price-card .amt-then{font-size:1.15rem;font-weight:700;color:var(--gold-bright);font-variant-numeric:tabular-nums;margin-top:2px;}
   .price-card .cap{font-size:.86rem;color:var(--text-2);margin:10px 0 16px;}
   .price-card ul li{font-size:.82rem;color:var(--text-3);margin-bottom:8px;padding-left:16px;position:relative;}
-  .price-card ul li::before{content:"&mdash;";position:absolute;left:0;color:var(--gold-dim);}
+  .price-card ul li::before{content:"\2014";position:absolute;left:0;color:var(--gold-dim);}
   .fee-note{
     margin-top:20px;border-left:3px solid var(--gold);background:var(--ink-raised);
     padding:16px 20px;font-size:.84rem;color:var(--text-2);border-radius:0 var(--radius-sm) var(--radius-sm) 0;
@@ -286,6 +292,8 @@
 
   @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important;}}
 </style>
+</head>
+<body>
 
 <header>
   <div class="shell nav-row">
@@ -321,7 +329,7 @@
         <div class="info-cell"><div class="k">Format</div><div class="v">10 live sessions on Zoom, 90 minutes each</div></div>
         <div class="info-cell"><div class="k">Schedule</div><div class="v">One session per week, plus two group deal labs</div></div>
         <div class="info-cell"><div class="k">Class size</div><div class="v">25 students per cohort</div></div>
-        <div class="info-cell"><div class="k">Tuition</div><div class="v">$4,997, or 3 payments of $1,797</div></div>
+        <div class="info-cell"><div class="k">Tuition</div><div class="v">$4,997, or $597 to start + 3 payments of $1,597</div></div>
         <div class="info-cell"><div class="k">Refund window</div><div class="v">Through the Friday after Session 2</div></div>
         <div class="info-cell"><div class="k">Next cohort begins</div><div class="v">[Start date] &middot; Session 1</div></div>
       </div>
@@ -346,8 +354,8 @@
           <label class="pay-option" id="optPlan">
             <input type="radio" name="plan" value="plan">
             <div style="width:100%;">
-              <div class="row"><span>3 monthly payments</span><span>$1,797 &times; 3</span></div>
-              <div class="sub">Billed today, in 30 days, and in 60 days &middot; $5,391 total.</div>
+              <div class="row"><span>Payment plan</span><span>$597 + $1,597 &times; 3</span></div>
+              <div class="sub">$597 due today, then $1,597 at 30, 60, and 90 days &middot; $5,388 total.</div>
             </div>
           </label>
         </div>
@@ -362,9 +370,9 @@
           <span>I have read the <a href="#refund-policy">Refund Policy</a>, <a href="#terms">Terms of Enrollment</a>, and <a href="#disclaimer">Disclaimer</a>, and I understand that this is an educational course and not an investment.</span>
         </label>
 
-        <button class="btn btn-gold btn-block" id="checkoutBtn" disabled>Continue to secure checkout</button>
+        <a class="btn btn-gold btn-block is-disabled" id="checkoutBtn" href="https://buy.stripe.com/00weVfesvfEAdUJb0q2cg02" target="_blank" rel="noopener" aria-disabled="true">Continue to secure checkout</a>
 
-        <div class="mount-box">[MOUNT&#8209;1] Stripe Payment Element renders here. No card fields are built into this page.</div>
+        <div class="mount-box">You'll be redirected to XSITE Academy's secure Stripe checkout for the plan selected above.</div>
         <div class="secure-note">Secure checkout &middot; Visa, Mastercard, American Express, Discover<br>Receipt and course access details are emailed within minutes of enrollment.</div>
       </div>
     </div>
@@ -401,7 +409,7 @@
     <div class="section-head">
       <div class="eyebrow">How the course is delivered</div>
       <h2>What you receive, and when</h2>
-      <p>Everything is delivered on a fixed schedule so you know exactly what to expect on each date. Nothing in this course is a subscription; tuition is a one-time purchase (or three scheduled installments) for a defined program.</p>
+      <p>Everything is delivered on a fixed schedule so you know exactly what to expect on each date. Nothing in this course is a subscription; tuition is a one-time purchase (or a scheduled payment plan) for a defined program.</p>
     </div>
     <div class="table-wrap">
       <table>
@@ -460,11 +468,12 @@
         <p class="cap">One payment, charged today.</p>
       </div>
       <div class="price-card">
-        <h4>Three monthly payments</h4>
-        <div class="amt">$1,797<sup> &times; 3</sup></div>
-        <p class="cap">Charged today, 30 days from today, and 60 days from today. Total $5,391. All three dates appear on your receipt.</p>
+        <h4>Payment plan</h4>
+        <div class="amt">$597<sup> to start</sup></div>
+        <div class="amt-then">then $1,597 &times; 3</div>
+        <p class="cap">$597 charged today, then $1,597 at 30, 60, and 90 days from today. Total $5,388. All four dates appear on your receipt.</p>
         <ul>
-          <li>Interest-free; the $394 difference is a payment-plan fee, disclosed here and at checkout.</li>
+          <li>Interest-free; the $391 difference is a payment-plan fee, disclosed here and at checkout.</li>
           <li>If a later installment fails, we email you and retry; course access is not removed without notice.</li>
         </ul>
       </div>
@@ -567,7 +576,7 @@
         <p><b>Eligibility.</b> Any student may request a full refund of tuition paid, including any installment already charged, provided all three conditions are met: (1) the student attended Sessions 1 and 2 live or watched the recordings; (2) the student submitted the written buy box assignment from Session 1; and (3) the request is emailed to support@xsiteacademy.com no later than 5:00 p.m. Eastern on the Friday following Session 2 of the student's cohort.</p>
         <p><b>Process.</b> We acknowledge refund requests within one business day and issue approved refunds to the original payment method within 5&ndash;10 business days. Remaining installments are cancelled at the same time. Course access ends when the refund is issued.</p>
         <p><b>After the refund window.</b> Because proprietary templates and tools are released at Session 3, tuition is non-refundable after the window closes. Students who cannot complete a cohort for medical or family reasons may transfer their seat to the next cohort at no charge by emailing support.</p>
-        <p><b>Installment plans.</b> Choosing the three-payment plan does not change the refund window. If a refund is approved, all installments already paid are returned and future installments are cancelled.</p>
+        <p><b>Installment plans.</b> Choosing the payment plan does not change the refund window. If a refund is approved, all installments already paid are returned and future installments are cancelled.</p>
       </div>
     </details>
 
@@ -575,7 +584,7 @@
       <summary>Terms of Enrollment<span class="ic">+</span></summary>
       <div class="policy-body">
         <p><b>Parties.</b> These terms are between the enrolling student and XSITE Capital Investment LLC, a Maryland limited liability company doing business as XSITE Academy ("XSITE Academy," "we").</p>
-        <p><b>What you're buying.</b> A seat in one cohort of the XSITE Multifamily Accelerator, an educational course delivered as described on this page, together with the course materials listed in the delivery schedule. Tuition is $4,997, payable in full or as three installments of $1,797 billed on enrollment and at 30 and 60 days.</p>
+        <p><b>What you're buying.</b> A seat in one cohort of the XSITE Multifamily Accelerator, an educational course delivered as described on this page, together with the course materials listed in the delivery schedule. Tuition is $4,997, payable in full, or as a payment plan of $597 billed on enrollment followed by three installments of $1,597 billed at 30, 60, and 90 days (total $5,388).</p>
         <p><b>Educational purpose.</b> The course provides general education about multifamily real estate. It is not investment, legal, tax, or financial advice, and it is not an offer or solicitation to buy or sell any security, real property, or interest in any entity. Students are responsible for their own decisions and are encouraged to consult licensed professionals.</p>
         <p><b>License to materials.</b> Course materials are licensed to the enrolled student for personal, non-commercial use. They may not be resold, shared, or redistributed.</p>
         <p><b>Conduct.</b> We may remove a student who disrupts sessions or harasses others; in that case tuition for remaining sessions is refunded on a pro-rata basis.</p>
@@ -659,23 +668,37 @@
   var todayAmt = document.getElementById('todayAmt');
   var checkoutBtn = document.getElementById('checkoutBtn');
 
+  var STRIPE_LINKS = {
+    full: 'https://buy.stripe.com/00weVfesvfEAdUJb0q2cg02',
+    plan: 'https://buy.stripe.com/6oUaEZgADakg5od2tU2cg03'
+  };
+  var DOT = '·';
+
   function selectPlan(which){
     if(which === 'full'){
       optFull.classList.add('active'); optPlan.classList.remove('active');
       priceDisplay.textContent = '$4,997'; priceNote.textContent = 'tuition, paid in full';
-      todayAmt.textContent = '$4,997 &middot; Total: $4,997';
+      todayAmt.textContent = '$4,997 ' + DOT + ' Total: $4,997';
     } else {
       optPlan.classList.add('active'); optFull.classList.remove('active');
-      priceDisplay.textContent = '$1,797'; priceNote.textContent = 'due today, first of 3 payments';
-      todayAmt.textContent = '$1,797 &middot; Total: $5,391';
+      priceDisplay.textContent = '$597'; priceNote.textContent = 'due today, then 3 payments of $1,597';
+      todayAmt.textContent = '$597 ' + DOT + ' Total: $5,388';
     }
+    checkoutBtn.href = STRIPE_LINKS[which];
   }
   optFull.addEventListener('click', function(){ optFull.querySelector('input').checked = true; selectPlan('full'); });
   optPlan.addEventListener('click', function(){ optPlan.querySelector('input').checked = true; selectPlan('plan'); });
 
   document.getElementById('agreeBox').addEventListener('change', function(e){
-    checkoutBtn.disabled = !e.target.checked;
+    var agreed = e.target.checked;
+    checkoutBtn.classList.toggle('is-disabled', !agreed);
+    checkoutBtn.setAttribute('aria-disabled', agreed ? 'false' : 'true');
+  });
+  checkoutBtn.addEventListener('click', function(e){
+    if(checkoutBtn.classList.contains('is-disabled')) e.preventDefault();
   });
 
   document.getElementById('todayDate').textContent = new Date().toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
 </script>
+</body>
+</html>
